@@ -7,7 +7,6 @@ def read_file(file_path):
 
 
 def main():
-    # Prompt for the first file name
     file1 = "BFSv1.c"
 
     try:
@@ -16,7 +15,6 @@ def main():
         print(f"Error: The file '{file1}' does not exist.")
         return
 
-    # Prompt for the second file name
     file2 = "BFSv2.c"
 
     try:
@@ -28,6 +26,8 @@ def main():
     # Calculate the line numbers and display the differences
     differ = difflib.ndiff(lines1, lines2)
     current_line = 0
+    additions = 0
+    deletions = 0
 
     for line in differ:
         code = line[0]
@@ -39,9 +39,15 @@ def main():
         if code == " ":
             continue
         elif code == "-":
-            print(f"Line {current_line} in {file1}: {text}", end="")
+            deletions += 1
         elif code == "+":
-            print(f"Line {current_line} in {file2}: {text}", end="")
+            additions += 1
+
+    total_changes = additions + deletions
+    print("\n--- Summary ---")
+    print(f"Additions: {additions}")
+    print(f"Deletions: {deletions}")
+    print(f"Total Changes: {total_changes}")
 
 
 if __name__ == "__main__":
